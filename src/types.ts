@@ -51,6 +51,7 @@ export interface MiraiResponse {
     code: number;
     msg: string;
     data?: unknown;
+    messageId?: number;
 }
 
 // ==================== Mirai Contact Types ====================

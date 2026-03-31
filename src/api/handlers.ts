@@ -21,6 +21,10 @@ function success(data?: unknown): MiraiResponse {
     return { code: MiraiStatusCode.Success, msg: 'success', data };
 }
 
+function successWithMessageId(messageId: number): MiraiResponse {
+    return { code: MiraiStatusCode.Success, msg: 'success', messageId };
+}
+
 function error(code: number, msg: string): MiraiResponse {
     return { code, msg };
 }
@@ -122,7 +126,7 @@ export async function handleSendFriendMessage(params: Params): Promise<MiraiResp
 
     try {
         const result = await callAction('send_msg', sendParams) as { message_id?: number };
-        return success({ messageId: result?.message_id ?? 0 });
+        return successWithMessageId(result?.message_id ?? 0);
     } catch (e) {
         return error(MiraiStatusCode.BadRequest, String(e));
     }
@@ -149,7 +153,7 @@ export async function handleSendGroupMessage(params: Params): Promise<MiraiRespo
 
     try {
         const result = await callAction('send_msg', sendParams) as { message_id?: number };
-        return success({ messageId: result?.message_id ?? 0 });
+        return successWithMessageId(result?.message_id ?? 0);
     } catch (e) {
         return error(MiraiStatusCode.BadRequest, String(e));
     }
@@ -178,7 +182,7 @@ export async function handleSendTempMessage(params: Params): Promise<MiraiRespon
 
     try {
         const result = await callAction('send_msg', sendParams) as { message_id?: number };
-        return success({ messageId: result?.message_id ?? 0 });
+        return successWithMessageId(result?.message_id ?? 0);
     } catch (e) {
         return error(MiraiStatusCode.BadRequest, String(e));
     }
